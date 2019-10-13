@@ -9,9 +9,8 @@ A simple bot for discord
 ```
 plse report any issue.
 ```
+- [x] Create a text channel exactly named as "logs"
 
 ```
  Make sure to paste your bot token in config.json file
 ```
-- [x] Invite Link : [https://discordapp.com/oauth2/authorize?client_id=629213292346343425&scope=bot]
-- [x] LINK :[https://top.gg/bot/629213292346343425]
