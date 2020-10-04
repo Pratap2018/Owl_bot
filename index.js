@@ -93,6 +93,7 @@ client.on('messageDelete', async (message) => {
 client.on('voiceStateUpdate', async (oldMember, newMember) => {
     let newUserChannel = newMember.voiceChannel;
     let oldUserChannel = oldMember.voiceChannel;
+   
     
     if (newMember.selfMute != oldMember.selfMute) {
         if (newMember.selfMute) {
@@ -254,13 +255,14 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
             loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
         }
         loggingChannel.send(logEmbed);
+        loggingChannel.send(`${newMember.displayName} Joined ${newUserChannel.name}`,{tts:true})
 
     } else if (newUserChannel === undefined) {
         // console.log(`${newMember.displayName} Leaved a voice channel ${oldUserChannel.name}`);
         // User leaves a voice channel
         let logEmbed = new Discord.RichEmbed()
             .setColor("RANDOM")
-            .addField(` :arrow_lower_left:  ${newMember.displayName} Left  voice channel ${oldUserChannel.name}\n`, newMember.user, true)
+            .addField(` :arrow_lower_left:  ${newMember.displayName} Left voice channel ${oldUserChannel.name}\n`, newMember.user, true)
             .setAuthor(newMember.user.tag, newMember.user.avatarURL)
             .setTimestamp()
             .setFooter("Voice Leave")
@@ -271,6 +273,7 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
             loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
         }
         loggingChannel.send(logEmbed);
+        loggingChannel.send(`${newMember.displayName} Left ${oldUserChannel.name}`,{tts:true})
 
     } else if (oldUserChannel.id != newUserChannel.id) {
         
@@ -288,6 +291,7 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
             loggingChannel.send("PLEASE CREATE A TEXT  CHANNEL EXACTLY NAMMED AS 'logs' ")
         }
         loggingChannel.send(logEmbed);
+        loggingChannel.send(`${newMember.displayName} Moved from ${oldUserChannel.name} to ${newUserChannel.name}`,{tts:true})
     }
 })
 /**** */
