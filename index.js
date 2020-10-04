@@ -4,11 +4,11 @@ const { prefix, token } = require('./config.json');
 const client = new Discord.Client();
 
 client.once('ready', () => {
-    console.log("Ready!!!");
+    //console.log("Ready!!!");
 });
 
 client.on('message', message => {
-    console.log(message.content);
+    //console.log(message.content);
     if (message.content == `${prefix}ping`) {
         message.channel.send('PING..');
     }
@@ -93,18 +93,161 @@ client.on('messageDelete', async (message) => {
 client.on('voiceStateUpdate', async (oldMember, newMember) => {
     let newUserChannel = newMember.voiceChannel;
     let oldUserChannel = oldMember.voiceChannel;
+    
+    if (newMember.selfMute != oldMember.selfMute) {
+        if (newMember.selfMute) {
+            let logEmbed = new Discord.RichEmbed()
+                .setColor("RANDOM")
+                .addField(`:recycle:  ${newMember.displayName}'s Mic is Self Muted `, newMember.user, true)
+                .setAuthor(newMember.user.tag, newMember.user.avatarURL)
+                .setTimestamp()
+                .setFooter("Voice Move")
 
+
+            let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
+            if (!loggingChannel) {
+                loggingChannel = newMember.guild.channels.find(ch => ch.name == "general")
+                loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
+            }
+            loggingChannel.send(logEmbed);
+        }else{
+            let logEmbed = new Discord.RichEmbed()
+                .setColor("RANDOM")
+                .addField(`:recycle:  ${newMember.displayName}'s Mic is Self Unmuted `, newMember.user, true)
+                .setAuthor(newMember.user.tag, newMember.user.avatarURL)
+                .setTimestamp()
+                .setFooter("Voice Move")
+
+
+            let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
+            if (!loggingChannel) {
+                loggingChannel = newMember.guild.channels.find(ch => ch.name == "general")
+                loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
+            }
+            loggingChannel.send(logEmbed);
+        }
+      
+    }
+
+
+
+     if (newMember.selfDeaf != oldMember.selfDeaf) {
+        if (newMember.selfDeaf) {
+            let logEmbed = new Discord.RichEmbed()
+                .setColor("RANDOM")
+                .addField(`:recycle:  ${newMember.displayName} Cannot Hear now (Self Deafen)  `, newMember.user, true)
+                .setAuthor(newMember.user.tag, newMember.user.avatarURL)
+                .setTimestamp()
+                .setFooter("Voice Move")
+
+
+            let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
+            if (!loggingChannel) {
+                loggingChannel = newMember.guild.channels.find(ch => ch.name == "general")
+                loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
+            }
+            loggingChannel.send(logEmbed);
+        }else{
+            let logEmbed = new Discord.RichEmbed()
+                .setColor("RANDOM")
+                .addField(`:recycle:  ${newMember.displayName} Can Hear now (Self Undeafen)`, newMember.user, true)
+                .setAuthor(newMember.user.tag, newMember.user.avatarURL)
+                .setTimestamp()
+                .setFooter("Voice Move")
+
+
+            let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
+            if (!loggingChannel) {
+                loggingChannel = newMember.guild.channels.find(ch => ch.name == "general")
+                loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
+            }
+            loggingChannel.send(logEmbed);
+        }
+      
+    } 
+
+
+
+
+    if (newMember.serverMute!=oldMember.serverMute){
+        if (newMember.serverMute) {
+            let logEmbed = new Discord.RichEmbed()
+                .setColor("RANDOM")
+                .addField(`:recycle:  ${newMember.displayName}'s Mic is Server Muted `, newMember.user, true)
+                .setAuthor(newMember.user.tag, newMember.user.avatarURL)
+                .setTimestamp()
+                .setFooter("Voice Move")
+
+
+            let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
+            if (!loggingChannel) {
+                loggingChannel = newMember.guild.channels.find(ch => ch.name == "general")
+                loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
+            }
+            loggingChannel.send(logEmbed);
+        }else{
+            let logEmbed = new Discord.RichEmbed()
+                .setColor("RANDOM")
+                .addField(`:recycle:  ${newMember.displayName}'s Mic is Server Unmuted `, newMember.user, true)
+                .setAuthor(newMember.user.tag, newMember.user.avatarURL)
+                .setTimestamp()
+                .setFooter("Voice Move")
+
+
+            let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
+            if (!loggingChannel) {
+                loggingChannel = newMember.guild.channels.find(ch => ch.name == "general")
+                loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
+            }
+            loggingChannel.send(logEmbed);
+        }
+    }
+
+    if (newMember.serverDeaf != oldMember.serverDeaf) {
+        if (newMember.serverDeaf) {
+            let logEmbed = new Discord.RichEmbed()
+                .setColor("RANDOM")
+                .addField(`:recycle:  ${newMember.displayName} Cannot Hear now (Server Deafen)  `, newMember.user, true)
+                .setAuthor(newMember.user.tag, newMember.user.avatarURL)
+                .setTimestamp()
+                .setFooter("Voice Move")
+
+
+            let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
+            if (!loggingChannel) {
+                loggingChannel = newMember.guild.channels.find(ch => ch.name == "general")
+                loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
+            }
+            loggingChannel.send(logEmbed);
+        }else{
+            let logEmbed = new Discord.RichEmbed()
+                .setColor("RANDOM")
+                .addField(`:recycle:  ${newMember.displayName} Can Hear now (Server Undeafen)`, newMember.user, true)
+                .setAuthor(newMember.user.tag, newMember.user.avatarURL)
+                .setTimestamp()
+                .setFooter("Voice Move")
+
+
+            let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
+            if (!loggingChannel) {
+                loggingChannel = newMember.guild.channels.find(ch => ch.name == "general")
+                loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
+            }
+            loggingChannel.send(logEmbed);
+        }
+      
+    } 
 
     if (oldUserChannel === undefined && newUserChannel !== undefined) {
-       // console.log(`${newMember.displayName} Joined a voice channel ${newUserChannel.name}`);
+        // console.log(`${newMember.displayName} Joined a voice channel ${newUserChannel.name}`);
         // User Joins a voice channel
-        let logEmbed = new Discord.RichEmbed()            
-        .setColor("RANDOM")
-        .addField(` :arrow_upper_right: ${newMember.displayName} Joined  voice channel  ${newUserChannel.name}\n`,newMember.user, true)
-        .setAuthor(newMember.user.tag,newMember.user.avatarURL)
-        .setTimestamp()
-        .setFooter("Voice Join")
-        
+        let logEmbed = new Discord.RichEmbed()
+            .setColor("RANDOM")
+            .addField(` :arrow_upper_right: ${newMember.displayName} Joined  voice channel  ${newUserChannel.name}\n`, newMember.user, true)
+            .setAuthor(newMember.user.tag, newMember.user.avatarURL)
+            .setTimestamp()
+            .setFooter("Voice Join")
+
         let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
         if (!loggingChannel) {
             loggingChannel = newMember.guild.channels.find(ch => ch.name == "general")
@@ -113,15 +256,15 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         loggingChannel.send(logEmbed);
 
     } else if (newUserChannel === undefined) {
-       // console.log(`${newMember.displayName} Leaved a voice channel ${oldUserChannel.name}`);
+        // console.log(`${newMember.displayName} Leaved a voice channel ${oldUserChannel.name}`);
         // User leaves a voice channel
-        let logEmbed = new Discord.RichEmbed()            
-        .setColor("RANDOM")
-        .addField(` :arrow_lower_left:  ${newMember.displayName} Left  voice channel ${oldUserChannel.name}\n`,newMember.user, true)
-        .setAuthor(newMember.user.tag,newMember.user.avatarURL)
-        .setTimestamp()
-        .setFooter("Voice Leave")
-        
+        let logEmbed = new Discord.RichEmbed()
+            .setColor("RANDOM")
+            .addField(` :arrow_lower_left:  ${newMember.displayName} Left  voice channel ${oldUserChannel.name}\n`, newMember.user, true)
+            .setAuthor(newMember.user.tag, newMember.user.avatarURL)
+            .setTimestamp()
+            .setFooter("Voice Leave")
+
         let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
         if (!loggingChannel) {
             loggingChannel = newMember.guild.channels.find(ch => ch.name == "general")
@@ -129,15 +272,16 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         }
         loggingChannel.send(logEmbed);
 
-    } else {
-        //console.log(`${newMember.displayName} Moved from ${oldUserChannel.name} to ${newUserChannel.name}`);
-        let logEmbed = new Discord.RichEmbed()            
-        .setColor("RANDOM")
-        .addField(`:recycle:  ${newMember.displayName} Moved from ${oldUserChannel.name} to ${newUserChannel.name}`,newMember.user, true)
-        .setAuthor(newMember.user.tag,newMember.user.avatarURL)
-        .setTimestamp()
-        .setFooter("Voice Move")
+    } else if (oldUserChannel.id != newUserChannel.id) {
         
+        //console.log(`${newMember.displayName} Moved from ${oldUserChannel.name} to ${newUserChannel.name}`);
+        let logEmbed = new Discord.RichEmbed()
+            .setColor("RANDOM")
+            .addField(`:recycle:  ${newMember.displayName} Moved from ${oldUserChannel.name} to ${newUserChannel.name}`, newMember.user, true)
+            .setAuthor(newMember.user.tag, newMember.user.avatarURL)
+            .setTimestamp()
+            .setFooter("Voice Move")
+
         let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
         if (!loggingChannel) {
             loggingChannel = newMember.guild.channels.find(ch => ch.name == "general")
