@@ -7,8 +7,14 @@ client.once('ready', () => {
     console.log("Ready!!!");
 });
 
+var tts = "logs"
+
 client.on('message', message => {
     //console.log(message.content);
+    if (message.content.startsWith(`${prefix}set-tts`)) {
+        tts = message.content.split(" ")[1]
+        tts = message.guild.channels.find(ch => ch.name == tts)
+    }
     if (message.content == `${prefix}ping`) {
         message.channel.send('PING..');
     }
@@ -80,11 +86,14 @@ client.on('messageDelete', async (message) => {
         .addField("Message", message.content, true)
         .setTimestamp()
         .setFooter("Message Delete log");
-    let loggingChannel = message.guild.channels.find(ch => ch.name == "logs")
-    if (!loggingChannel) {
-        loggingChannel = message.guild.channels.find(ch => ch.name == "general")
+    
+    if (message.author.username !== "Owl") {
+        let loggingChannel = message.guild.channels.find(ch => ch.name == "logs")
+        if (!loggingChannel) {
+            loggingChannel = message.guild.channels.find(ch => ch.name == "general")
+        }
+        loggingChannel.send(logEmbed);
     }
-    loggingChannel.send(logEmbed);
 })
 
 /************* */
@@ -93,8 +102,8 @@ client.on('messageDelete', async (message) => {
 client.on('voiceStateUpdate', async (oldMember, newMember) => {
     let newUserChannel = newMember.voiceChannel;
     let oldUserChannel = oldMember.voiceChannel;
-   
-    
+
+
     if (newMember.selfMute != oldMember.selfMute) {
         if (newMember.selfMute) {
             let logEmbed = new Discord.RichEmbed()
@@ -111,7 +120,7 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
                 loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
             }
             loggingChannel.send(logEmbed);
-        }else{
+        } else {
             let logEmbed = new Discord.RichEmbed()
                 .setColor("RANDOM")
                 .addField(`:speaker:  ${newMember.displayName}'s Mic is Self Unmuted `, newMember.user, true)
@@ -127,12 +136,12 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
             }
             loggingChannel.send(logEmbed);
         }
-      
+
     }
 
 
 
-     if (newMember.selfDeaf != oldMember.selfDeaf) {
+    if (newMember.selfDeaf != oldMember.selfDeaf) {
         if (newMember.selfDeaf) {
             let logEmbed = new Discord.RichEmbed()
                 .setColor("RANDOM")
@@ -148,7 +157,7 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
                 loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
             }
             loggingChannel.send(logEmbed);
-        }else{
+        } else {
             let logEmbed = new Discord.RichEmbed()
                 .setColor("RANDOM")
                 .addField(`:speaker:  ${newMember.displayName} Can Hear now (Self Undeafen)`, newMember.user, true)
@@ -164,13 +173,13 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
             }
             loggingChannel.send(logEmbed);
         }
-      
-    } 
+
+    }
 
 
 
 
-    if (newMember.serverMute!=oldMember.serverMute){
+    if (newMember.serverMute != oldMember.serverMute) {
         if (newMember.serverMute) {
             let logEmbed = new Discord.RichEmbed()
                 .setColor("RANDOM")
@@ -186,7 +195,7 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
                 loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
             }
             loggingChannel.send(logEmbed);
-        }else{
+        } else {
             let logEmbed = new Discord.RichEmbed()
                 .setColor("RANDOM")
                 .addField(`:speaker:  ${newMember.displayName}'s Mic is Server Unmuted `, newMember.user, true)
@@ -220,7 +229,7 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
                 loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
             }
             loggingChannel.send(logEmbed);
-        }else{
+        } else {
             let logEmbed = new Discord.RichEmbed()
                 .setColor("RANDOM")
                 .addField(`:speaker:  ${newMember.displayName} Can Hear now (Server Undeafen)`, newMember.user, true)
@@ -236,8 +245,8 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
             }
             loggingChannel.send(logEmbed);
         }
-      
-    } 
+
+    }
 
     if (oldUserChannel === undefined && newUserChannel !== undefined) {
         // console.log(`${newMember.displayName} Joined a voice channel ${newUserChannel.name}`);
@@ -255,7 +264,7 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
             loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
         }
         loggingChannel.send(logEmbed);
-        loggingChannel.send(`${newMember.displayName} Joined ${newUserChannel.name}`,{tts:true})
+        tts.send(`${newMember.displayName} Joined ${newUserChannel.name}`, { tts: true }).then(msg => { msg.delete(6000) })
 
     } else if (newUserChannel === undefined) {
         // console.log(`${newMember.displayName} Leaved a voice channel ${oldUserChannel.name}`);
@@ -273,10 +282,10 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
             loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
         }
         loggingChannel.send(logEmbed);
-        loggingChannel.send(`${newMember.displayName} Left ${oldUserChannel.name}`,{tts:true})
+        tts.send(`${newMember.displayName} Left ${oldUserChannel.name}`, { tts: true }).then(msg => { msg.delete(6000) })
 
     } else if (oldUserChannel.id != newUserChannel.id) {
-        
+
         //console.log(`${newMember.displayName} Moved from ${oldUserChannel.name} to ${newUserChannel.name}`);
         let logEmbed = new Discord.RichEmbed()
             .setColor("RANDOM")
@@ -291,7 +300,7 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
             loggingChannel.send("PLEASE CREATE A TEXT  CHANNEL EXACTLY NAMMED AS 'logs' ")
         }
         loggingChannel.send(logEmbed);
-        loggingChannel.send(`${newMember.displayName} Moved from ${oldUserChannel.name} to ${newUserChannel.name}`,{tts:true})
+        tts.send(`${newMember.displayName} Moved from ${oldUserChannel.name} to ${newUserChannel.name}`, { tts: true }).then(msg => { msg.delete(6000) })
     }
 })
 /**** */
