@@ -98,10 +98,10 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         if (newMember.selfMute) {
             let logEmbed = new Discord.RichEmbed()
                 .setColor("RANDOM")
-                .addField(`:recycle:  ${newMember.displayName}'s Mic is Self Muted `, newMember.user, true)
+                .addField(`:mute:  ${newMember.displayName}'s Mic is Self Muted `, newMember.user, true)
                 .setAuthor(newMember.user.tag, newMember.user.avatarURL)
                 .setTimestamp()
-                .setFooter("Voice Move")
+                .setFooter("Voice Mute")
 
 
             let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
@@ -113,10 +113,10 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         }else{
             let logEmbed = new Discord.RichEmbed()
                 .setColor("RANDOM")
-                .addField(`:recycle:  ${newMember.displayName}'s Mic is Self Unmuted `, newMember.user, true)
+                .addField(`:speaker:  ${newMember.displayName}'s Mic is Self Unmuted `, newMember.user, true)
                 .setAuthor(newMember.user.tag, newMember.user.avatarURL)
                 .setTimestamp()
-                .setFooter("Voice Move")
+                .setFooter("Voice Unmute")
 
 
             let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
@@ -135,10 +135,10 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         if (newMember.selfDeaf) {
             let logEmbed = new Discord.RichEmbed()
                 .setColor("RANDOM")
-                .addField(`:recycle:  ${newMember.displayName} Cannot Hear now (Self Deafen)  `, newMember.user, true)
+                .addField(`:mute:  ${newMember.displayName} Cannot Hear now (Self Deafen)  `, newMember.user, true)
                 .setAuthor(newMember.user.tag, newMember.user.avatarURL)
                 .setTimestamp()
-                .setFooter("Voice Move")
+                .setFooter("Voice Deafen")
 
 
             let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
@@ -150,10 +150,10 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         }else{
             let logEmbed = new Discord.RichEmbed()
                 .setColor("RANDOM")
-                .addField(`:recycle:  ${newMember.displayName} Can Hear now (Self Undeafen)`, newMember.user, true)
+                .addField(`:speaker:  ${newMember.displayName} Can Hear now (Self Undeafen)`, newMember.user, true)
                 .setAuthor(newMember.user.tag, newMember.user.avatarURL)
                 .setTimestamp()
-                .setFooter("Voice Move")
+                .setFooter("Voice Undeafen")
 
 
             let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
@@ -173,10 +173,10 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         if (newMember.serverMute) {
             let logEmbed = new Discord.RichEmbed()
                 .setColor("RANDOM")
-                .addField(`:recycle:  ${newMember.displayName}'s Mic is Server Muted `, newMember.user, true)
+                .addField(`:mute:  ${newMember.displayName}'s Mic is Server Muted `, newMember.user, true)
                 .setAuthor(newMember.user.tag, newMember.user.avatarURL)
                 .setTimestamp()
-                .setFooter("Voice Move")
+                .setFooter("FORCE MUTE")
 
 
             let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
@@ -188,10 +188,10 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         }else{
             let logEmbed = new Discord.RichEmbed()
                 .setColor("RANDOM")
-                .addField(`:recycle:  ${newMember.displayName}'s Mic is Server Unmuted `, newMember.user, true)
+                .addField(`:speaker:  ${newMember.displayName}'s Mic is Server Unmuted `, newMember.user, true)
                 .setAuthor(newMember.user.tag, newMember.user.avatarURL)
                 .setTimestamp()
-                .setFooter("Voice Move")
+                .setFooter("FORCE UNMUTE")
 
 
             let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
@@ -207,10 +207,10 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         if (newMember.serverDeaf) {
             let logEmbed = new Discord.RichEmbed()
                 .setColor("RANDOM")
-                .addField(`:recycle:  ${newMember.displayName} Cannot Hear now (Server Deafen)  `, newMember.user, true)
+                .addField(`:mute:  ${newMember.displayName} Cannot Hear now (Server Deafen)  `, newMember.user, true)
                 .setAuthor(newMember.user.tag, newMember.user.avatarURL)
                 .setTimestamp()
-                .setFooter("Voice Move")
+                .setFooter("FORCE DEAFEN")
 
 
             let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
@@ -222,10 +222,10 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         }else{
             let logEmbed = new Discord.RichEmbed()
                 .setColor("RANDOM")
-                .addField(`:recycle:  ${newMember.displayName} Can Hear now (Server Undeafen)`, newMember.user, true)
+                .addField(`:speaker:  ${newMember.displayName} Can Hear now (Server Undeafen)`, newMember.user, true)
                 .setAuthor(newMember.user.tag, newMember.user.avatarURL)
                 .setTimestamp()
-                .setFooter("Voice Move")
+                .setFooter("FORCE UNDEAFEN")
 
 
             let loggingChannel = newMember.guild.channels.find(ch => ch.name == "logs")
