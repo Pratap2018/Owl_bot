@@ -7,14 +7,11 @@ client.once('ready', () => {
     console.log("Ready!!!");
 });
 
-var tts = "logs"
+
 
 client.on('message', message => {
     //console.log(message.content);
-    if (message.content.startsWith(`${prefix}set-tts`)) {
-        tts = message.content.split(" ")[1]
-
-    }
+    
     if (message.content == `${prefix}ping`) {
         message.channel.send('PING..');
     }
@@ -102,7 +99,7 @@ client.on('messageDelete', async (message) => {
 client.on('voiceStateUpdate', async (oldMember, newMember) => {
     let newUserChannel = newMember.voiceChannel;
     let oldUserChannel = oldMember.voiceChannel;
-
+    
 
     if (newMember.selfMute != oldMember.selfMute) {
         if (newMember.selfMute) {
@@ -263,13 +260,9 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
             loggingChannel = newMember.guild.channels.find(ch => ch.name == "general")
             loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
         }
-        loggingChannel.send(logEmbed);
-        tts = newMember.guild.channels.find(ch => ch.name == tts)
-        if (!tts) {
-
-        } else {
-            tts.send(`${newMember.displayName} Joined ${newUserChannel.name}`, { tts: true }).then(msg => { msg.delete(6000) })
-        }
+        loggingChannel.send(logEmbed);      
+        loggingChannel.send(`${newMember.displayName} Joined ${newUserChannel.name}`, { tts: true }).then(msg => { msg.delete(6000) })
+        
     } else if (newUserChannel === undefined) {
         // console.log(`${newMember.displayName} Leaved a voice channel ${oldUserChannel.name}`);
         // User leaves a voice channel
@@ -286,12 +279,9 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
             loggingChannel.send("PLEASE CREATE A  TEXT CHANNEL EXACTLY NAMMED AS 'logs' ")
         }
         loggingChannel.send(logEmbed);
-        tts = newMember.guild.channels.find(ch => ch.name == tts)
-        if (!tts) {
-
-        } else {
-            tts.send(`${newMember.displayName} Left ${oldUserChannel.name}`, { tts: true }).then(msg => { msg.delete(6000) })
-        }
+       
+        loggingChannel.send(`${newMember.displayName} Left ${oldUserChannel.name}`, { tts: true }).then(msg => { msg.delete(6000) })
+        
     } else if (oldUserChannel.id != newUserChannel.id) {
 
         //console.log(`${newMember.displayName} Moved from ${oldUserChannel.name} to ${newUserChannel.name}`);
@@ -308,12 +298,9 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
             loggingChannel.send("PLEASE CREATE A TEXT  CHANNEL EXACTLY NAMMED AS 'logs' ")
         }
         loggingChannel.send(logEmbed);
-        tts = newMember.guild.channels.find(ch => ch.name == tts)
-        if (!tts) {
-
-        } else {
-            tts.send(`${newMember.displayName} Moved from ${oldUserChannel.name} to ${newUserChannel.name}`, { tts: true }).then(msg => { msg.delete(6000) })
-        }
+       
+        loggingChannel.send(`${newMember.displayName} Moved from ${oldUserChannel.name} to ${newUserChannel.name}`, { tts: true }).then(msg => { msg.delete(6000) })
+        
     }
 })
 /**** */
